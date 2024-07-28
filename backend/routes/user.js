@@ -25,14 +25,24 @@ router.post('/signup',sign_up_middleware,sign_up_db,async(req,res)=>{
 
 })
 
-router.post('/login',log_in_middleware,(req,res)=>{
+router.post('/login',log_in_middleware,async (req,res)=>{
 
-
+    let x=await user.find({$and:[{"username":req.body.username},{"password":req.body.password}]})
     
-    res.json({
-        msg:"middleware working"
-    })
+    if(x.length){
+        let token=jwt.sign(req.body.username,JWTKEY)
+        res.json({
+            msg: "sussfully login",
+            token:token
+        })
+    }
+    else{
+        res.json({
+            msg: "user does not exist"
 
+        })
+    }
+   
 })
 
 
