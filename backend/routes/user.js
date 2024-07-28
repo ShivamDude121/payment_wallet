@@ -1,22 +1,21 @@
 const { Router }= require("express");
 const router=Router()
+const {sign_up_middleware,log_in_middleware}=require('../middleware/user/usermidlleware')
 
-
-
-router.post('/signup',(req,res)=>{
-
+router.post('/signup',sign_up_middleware,(req,res)=>{
     res.json({
-        msg:" hjiksrgfbhik"
+        msg:"middleware working"
+       
     })
 
 })
 
-router.post('/login',(req,res)=>{
+router.post('/login',log_in_middleware,(req,res)=>{
 
 
     
     res.json({
-        msg:" hjiksrgfbhik"
+        msg:"middleware working"
     })
 
 })

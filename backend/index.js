@@ -4,8 +4,8 @@ const userRouter=require('./routes/user');
 
 const JWTKEY="shivam@123";
 
-app.use('/user',userRouter);
 app.use(express.json());
+app.use('/user',userRouter);
 
 
 
