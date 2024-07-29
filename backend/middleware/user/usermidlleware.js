@@ -15,7 +15,7 @@ const login_schema=z.object({
 
 
 
-function sign_up_middleware(req,res,nxt){
+ function sign_up_middleware(req,res,nxt){
     try{
         signin_Schema.parse(req.body)
          nxt()
@@ -29,6 +29,7 @@ function sign_up_middleware(req,res,nxt){
 
     }
 }
+
 function log_in_middleware(req,res,nxt){
   
    try{
