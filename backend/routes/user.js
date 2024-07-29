@@ -9,11 +9,14 @@ const jwt=require('jsonwebtoken')
 router.post('/signup',sign_up_middleware,sign_up_db,async(req,res)=>{
 
     let x= await new user(req.body);
-    let token=jwt.sign(req.body.username,JWTKEY)
+    const userId=x._id
+    const jwtstring=JSON.stringify(userId);
+    let token=jwt.sign(jwtstring,JWTKEY)
 
+   
    try{
     
-    const userId = x._id;
+    
 
 	 
     let y = new account({
@@ -54,8 +57,11 @@ router.post('/login',log_in_middleware,async (req,res)=>{
 
     let x=await user.find({$and:[{"username":req.body.username},{"password":req.body.password}]})
     
+   
     if(x.length){
-        let token=jwt.sign(req.body.username,JWTKEY)
+        const userId=x[0]._id
+    const jwtstring=JSON.stringify(userId);
+        let token=jwt.sign(jwtstring,JWTKEY)
         res.json({
             msg: "sussfully login",
             token:token
