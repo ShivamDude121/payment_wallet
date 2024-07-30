@@ -23,6 +23,35 @@ router.get('/balance',authMiddleware,async (req,res,nxt)=>{
    
 })
 
+router.post('/transfer',authMiddleware,async (req,res)=>{
+
+   const x=await account.findOne({userId:req.userId});
+   const y=await account.findOne({userId:req.body.userId});
+   
+   const amount=req.body.amount;
+
+   if(x.balance-amount<0){
+      res.json({
+         msg:"insufficent balance"
+      })
+   }
+   else{
+      x.balance=x.balance-amount;
+      y.balance=y.balance+amount;
+
+      await x.save();
+      await y.save();
+      res.json({
+         msg: "transaction sucessful"
+      })
+   }
+   
+
+ 
+
+
+})
+
 
 
 module.exports=router;
