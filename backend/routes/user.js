@@ -76,5 +76,27 @@ router.post('/login',log_in_middleware,async (req,res)=>{
    
 })
 
+router.get("/find",async (req,res)=>{
+
+    const filter=req.query.filter||"";
+    console.log(filter)
+
+    const query = {
+        $or: [
+            { firstname: { $regex: filter, $options: 'i' } },
+            { lastname: { $regex: filter, $options: 'i' } }
+        ]
+    };
+
+    
+    const users = await user.find(query);
+
+    
+        res.json({
+            users
+        })
+
+})
+
 
 module.exports=router
