@@ -1,5 +1,11 @@
 function Dashboard(){
-    return <div>dashbored</div>
+    return (<>
+    
+
+
+
+
+    </>)
 }
 
 export default Dashboard
