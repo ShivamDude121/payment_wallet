@@ -31,7 +31,9 @@ router.post('/signup',sign_up_middleware,sign_up_db,async(req,res)=>{
    }
    catch{
        res.json({
-        msg:"account creation isuue"
+        msg:"account creation isuue",
+        status:403,
+
        })
    }
   
@@ -41,11 +43,13 @@ router.post('/signup',sign_up_middleware,sign_up_db,async(req,res)=>{
     x.save().then(()=>{
         res.json({
             msg: "user added",
+            status:400,
             token:token
         })
     }).catch(()=>{
         res.json({
-            msg:'something went wrong'
+            msg:'database failed',
+            status:203
         })
     })
 
@@ -64,12 +68,14 @@ router.post('/login',log_in_middleware,async (req,res)=>{
         let token=jwt.sign(jwtstring,JWTKEY)
         res.json({
             msg: "sussfully login",
+            status:400,
             token:token
         })
     }
     else{
         res.json({
-            msg: "user does not exist"
+            msg: "user does not exist",
+            status:403
 
         })
     }

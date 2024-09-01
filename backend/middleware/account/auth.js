@@ -17,8 +17,9 @@ const authMiddleware = (req, res, nxt) => {
 
         nxt();
     } catch (err) {
-        return res.status(403).json({
-            msg:"bad authorization"
+        return res.json({
+            msg:"bad authorization",
+            status:403
         });
     }
    

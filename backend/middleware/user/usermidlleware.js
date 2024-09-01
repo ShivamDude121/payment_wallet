@@ -22,10 +22,12 @@ const login_schema=z.object({
        
     }
     catch{
-
-        res.json(
-            signin_Schema.safeParse(req.body) 
-        )
+      
+        res.json({
+            msg:signin_Schema.safeParse(req.body).error.issues[0].message,
+            path:signin_Schema.safeParse(req.body).error.issues[0].path,
+            "status":403
+        })
 
     }
 }
@@ -38,7 +40,8 @@ function log_in_middleware(req,res,nxt){
    }
    catch{
     res.json({
-        msg:"wrong"
+        msg:login_schema.safeParse(req.body).error.issues[0].message,
+        status:403
     })
    }
 }

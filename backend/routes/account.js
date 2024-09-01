@@ -14,7 +14,8 @@ router.get('/balance',authMiddleware,async (req,res,nxt)=>{
    const balance=x[0].balance;
 
    res.json({
-    "balance":balance
+    "balance":balance,
+    status:400
    })
 
    
@@ -24,7 +25,7 @@ router.get('/balance',authMiddleware,async (req,res,nxt)=>{
 })
 
 router.post('/transfer',authMiddleware,async (req,res)=>{
-
+   try{
    const x=await account.findOne({userId:req.userId});
    const y=await account.findOne({userId:req.body.userId});
    
@@ -32,7 +33,8 @@ router.post('/transfer',authMiddleware,async (req,res)=>{
 
    if(x.balance-amount<0){
       res.json({
-         msg:"insufficent balance"
+         msg:"insufficent balance",
+         status:403
       })
    }
    else{
@@ -42,9 +44,17 @@ router.post('/transfer',authMiddleware,async (req,res)=>{
       await x.save();
       await y.save();
       res.json({
-         msg: "transaction sucessful"
+         msg: "transaction sucessful",
+         status:400
       })
    }
+}
+catch{
+   res.json({
+      msg:"something went wrong",
+      status:403
+   })
+}
    
 
  
