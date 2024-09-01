@@ -82,25 +82,27 @@ router.post('/login',log_in_middleware,async (req,res)=>{
    
 })
 
-router.get("/find",async (req,res)=>{
+router.post("/find",async (req,res)=>{
 
-    const filter=req.query.filter||"";
-    console.log(filter)
-
-    const query = {
-        $or: [
-            { firstname: { $regex: filter, $options: 'i' } },
-            { lastname: { $regex: filter, $options: 'i' } }
-        ]
-    };
-
+    const filter=req.body.name;
+    if(filter.length){
+        const query = {
+            $or: [
+                { "firstname": { "$regex": filter, "$options": 'i' } },
+                { "lastname": { "$regex": filter, "$options": 'i' } }
+            ]
+        };
     
-    const users = await user.find(query);
-
-    
+        const ans = await user.find(query);
+        console.log(ans)
         res.json({
-            users
+            ans
         })
+    }
+    else{
+        res.json({});
+    }
+
 
 })
 
