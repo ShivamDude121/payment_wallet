@@ -5,8 +5,7 @@ const accountRouter=require('./routes/account');
 const mongoose=require('mongoose');
 const DBURL="mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/payment_wallet"
 const JWTKEY="shivam@123";
-
-
+const cors=require('cors');
 
 
 const connet_db=async()=>{
@@ -26,7 +25,7 @@ connet_db();
 
 
 
-
+app.use(cors());
 app.use(express.json());
 app.use('/user',userRouter);
 app.use('/account',accountRouter)
