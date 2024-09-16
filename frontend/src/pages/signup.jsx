@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import logo from '../assets/logo.png'
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+
+
 
 function Signup(){
+  
 
   const [f_name,setf_name]=useState("");
   const [l_name,setl_name]=useState("");
@@ -10,11 +14,42 @@ function Signup(){
   const [u_name,setu_name]=useState("");
   const [pass,setpass]=useState("");
   const navigate=useNavigate();
+  
+  async function sign(){
+   
+    const res= await axios.post("http://localhost:3000/user/signup",{
+      firstname:f_name,
+      lastname:l_name,
+      number:phone,
+      username:u_name,
+      password:pass
+    })
 
+    if(res.data.status==400){
+      localStorage.setItem('login',{
+        login:true,
+        token:res.data.token
+      });
+      console.log(res.data.token)
+      navigate('/dashboard');
+    }
+    else{
+      console.log(res.data.msg);
+    }
+    
+  }
   
   
     return (
         <>
+ 
+
+ 
+
+
+
+
+
 
         
         
@@ -69,12 +104,12 @@ function Signup(){
 
 
       <div>
-        <button   className="flex w-full justify-center rounded-md bg-gradient-to-tr from-purple-500 to-sky-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+        <button onClick={sign}  className="flex w-full justify-center rounded-md bg-gradient-to-tr from-purple-500 to-sky-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
       </div>
     </form>
     <p className="mt-10 text-center text-sm text-gray-500">
             Alredy a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a  href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Click Here For SignIn
             </a>
           </p>
