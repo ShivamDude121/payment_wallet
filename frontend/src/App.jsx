@@ -4,7 +4,6 @@ import Signin from './pages/signin'
 import Signup from './pages/signup'
 import Dashboard from './pages/dashboard'
 import SendMoney from './pages/sendmoney'
-import PageNotFound from './pages/404'
 
 
 
@@ -20,7 +19,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/send" element={<SendMoney />} />
-          <Route path='/error' element={<PageNotFound/>}/>
+       
         </Routes>
       </BrowserRouter>
     </>

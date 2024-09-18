@@ -34,7 +34,7 @@ function Signup(){
       navigate('/dashboard');
     }
     else{
-      console.log(res.data.msg);
+      alert(res.data.msg);
     }
     
   }
@@ -61,7 +61,7 @@ function Signup(){
   </div>
 
   <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form className="space-y-6" >
+    <div className="space-y-6" >
       <div>
         <label for="email" className="block text-sm font-medium leading-6 text-gray-900">First Name</label>
         <div className="mt-2">
@@ -106,7 +106,7 @@ function Signup(){
       <div>
         <button onClick={sign}  className="flex w-full justify-center rounded-md bg-gradient-to-tr from-purple-500 to-sky-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
       </div>
-    </form>
+    </div>
     <p className="mt-10 text-center text-sm text-gray-500">
             Alredy a member?{' '}
             <a  href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
