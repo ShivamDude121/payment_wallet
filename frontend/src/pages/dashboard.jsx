@@ -6,6 +6,23 @@ import SearchBox from "../componets/searchbox";
 import Stack from "../componets/stack";
 import {useNavigate} from 'react-router-dom'
 import axios from "axios";
+import Element from "../componets/stack_ements"
+
+
+function useDebounce(value,delay){
+    const [ans,setans]=useState(value);
+    useEffect(()=>{
+        let id=setInterval(() => {
+            setans(value)
+            
+        }, delay);
+
+      return ()=>{clearInterval(id)}
+    },[value,delay])
+
+    return ans;
+
+}
 
 
 function Dashboard(){
@@ -29,6 +46,28 @@ function Dashboard(){
 
        bal();
     },[])
+
+    const [input,setinput]=useState("");
+    const deb_ans=useDebounce(input,700);
+    const [srch,set_srch]=useState([]);
+    
+    useEffect(()=>{
+        // search();
+         axios.post("http://localhost:3000/user/find",{
+            "name":deb_ans
+        }).then((r)=>{set_srch(r.data.ans)})
+
+        
+    },[deb_ans]);
+
+    let ppl=useMemo(()=>{
+       if(srch!=undefined){
+        return   srch.map( x => <li><Element f_name={x.firstname} l_name={x.lastname} u_name={x.username}/></li>)
+       }
+       else return <li></li>
+    },[srch])
+
+
     
   
     if(z.login==true){
@@ -41,10 +80,13 @@ function Dashboard(){
         <Card name={name} bala={bala}/>
     </div>
     <div className="py-16">
-    <SearchBox/>
+    <SearchBox setinput={setinput}/>
     </div>
     <div className="px-10 pb-20">
-    <Stack/>
+    
+    <ul role="list" class="divide-y divide-gray-100">
+        {ppl}
+    </ul> 
     </div>
 
     <Footer/>
