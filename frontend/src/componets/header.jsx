@@ -1,7 +1,15 @@
 
 import logo from "../assets/logo.png";
-
+import {useNavigate} from 'react-router-dom'
 export default function  Header(){
+  const navigate=useNavigate();
+    function logout(){
+      console.log("OK")
+      localStorage.clear();
+      navigate("/signin");
+      
+
+    }
     return(
         <>
         <header className="bg-gradient-to-r from-gray-100 to-cyan-100">
@@ -28,7 +36,7 @@ export default function  Header(){
       <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Contact Us</a>
     </div>
     <div className="hidden lg:flex  lg:flex-1 lg:justify-end">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+    <button  onClick={logout} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
   Log Out
 </button>
       {/* <a href="#" className="text-sm  font-semibold leading-6 text-gray-900">Log Out <span aria-hidden="true">&rarr;</span></a> */}

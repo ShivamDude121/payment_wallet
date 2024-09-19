@@ -24,10 +24,11 @@ function Signin(){
 
     if(res.data.status==400){
       console.log(res.data.token)
-      localStorage.setItem('login',{
+      localStorage.setItem('login',JSON.stringify({
         login:true,
-        token:res.data.token
-      });
+        token:res.data.token,
+        name:u_name
+      }));
      
       navigate('/dashboard');
     }
@@ -81,7 +82,7 @@ function Signin(){
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a onClick={()=>{navigate("/signup")}} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Click Here For SingUp
             </a>
           </p>

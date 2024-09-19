@@ -26,11 +26,12 @@ function Signup(){
     })
 
     if(res.data.status==400){
-      localStorage.setItem('login',{
+      localStorage.setItem('login',JSON.stringify({
         login:true,
-        token:res.data.token
-      });
-      console.log(res.data.token)
+        token:res.data.token,
+        name:u_name
+      }));
+      
       navigate('/dashboard');
     }
     else{
@@ -109,7 +110,7 @@ function Signup(){
     </div>
     <p className="mt-10 text-center text-sm text-gray-500">
             Alredy a member?{' '}
-            <a  href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a  onClick={()=>{navigate("/signin")}} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Click Here For SignIn
             </a>
           </p>
