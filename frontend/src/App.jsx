@@ -4,6 +4,15 @@ import Signin from './pages/signin'
 import Signup from './pages/signup'
 import Dashboard from './pages/dashboard'
 import SendMoney from './pages/sendmoney'
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
+
+
 
 
 
@@ -13,7 +22,7 @@ function App() {
   return (
     <>
        <BrowserRouter>
-      
+       <RecoilRoot>
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
@@ -21,6 +30,7 @@ function App() {
           <Route path="/send" element={<SendMoney />} />
        
         </Routes>
+        </RecoilRoot>
       </BrowserRouter>
     </>
   )

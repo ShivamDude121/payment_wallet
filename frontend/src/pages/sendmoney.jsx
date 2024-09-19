@@ -1,4 +1,33 @@
+import { useRecoilState } from "recoil"
+import { useState } from "react";
+import { pay } from "../atom"
+import axios from "axios";
+import {useNavigate} from 'react-router-dom'
+
 const SendMoney = () => {
+    const navigate=useNavigate()
+     const [x,setx]=useRecoilState(pay);
+     const z=JSON.parse(localStorage.getItem("login"));
+     const token=z.token;
+     const [money,setmoney]=useState(0);
+     async function pay_1(){
+        const ans= await axios.post("http://localhost:3000/account/transfer",{
+            "userId" :x.userId,
+            "amount":money
+        },{ headers: {
+            'Authorization': token
+          }})
+          if(ans.data.status==400){
+            alert("Transfer Sucessfull")
+            navigate("/dashboard")
+          }
+          else{
+            alert(ans.data.msg);
+          }
+     }
+
+
+
     return <div className="flex justify-center h-screen bg-gradient-to-r from-fuchsia-100 to-cyan-100">
         <div className="h-full flex flex-col justify-center">
             <div
@@ -12,7 +41,7 @@ const SendMoney = () => {
                     <div className="w-12 h-12 rounded-full bg-blue-400 flex items-center justify-center">
                     <span className="text-2xl text-white">A</span>
                     </div>
-                    <h3 className="text-2xl font-semibold">Friend's Name</h3>
+                    <h3 className="text-2xl font-semibold">{x.f_name} {x.l_name}</h3>
                 </div>
                 <div className="space-y-4">
                     <div className="space-y-2">
@@ -22,14 +51,14 @@ const SendMoney = () => {
                     >
                         Amount (in Rs)
                     </label>
-                    <input
+                    <input onChange={(e)=>{setmoney(e.target.value)}}
                         type="number"
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                         id="amount"
                         placeholder="Enter amount"
                     />
                     </div>
-                    <button className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-blue-400 text-white">
+                    <button onClick={pay_1} className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-blue-400 text-white">
                         Initiate Transfer
                     </button>
                 </div>

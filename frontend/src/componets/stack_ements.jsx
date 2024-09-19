@@ -1,4 +1,23 @@
-export default function Element({f_name,l_name,u_name}){
+import { useRecoilState } from "recoil"
+import { pay } from "../atom"
+
+import {useNavigate} from 'react-router-dom'
+
+
+export default function Element({f_name,l_name,u_name,userId}){
+  const navigate=useNavigate();
+   
+  const [x,setx]=useRecoilState(pay);
+  function set_data(){
+    let z={
+      "f_name":f_name,
+      "l_name":l_name,
+      "userId":userId
+  }
+  setx(z);
+  navigate("/send");
+  
+  }
 
     return (<>
 
@@ -10,7 +29,7 @@ export default function Element({f_name,l_name,u_name}){
       </div>
     </div>
     <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-400 dark:hover:bg-blue-700 ">Pay</button>
+    <button type="button"  onClick={set_data}class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-400 dark:hover:bg-blue-700 ">Pay</button>
 
       {/* <p class="text-sm leading-6 text-gray-900">Co-Founder / CEO</p> */}
       {/* <p class="mt-1 text-xs leading-5 text-gray-500">Last seen <time datetime="2023-01-23T13:23Z">3h ago</time></p> */}

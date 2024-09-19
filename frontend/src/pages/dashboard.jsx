@@ -3,7 +3,7 @@ import Card from "../componets/balance_card";
 import Footer from "../componets/footer";
 import Header from "../componets/header";
 import SearchBox from "../componets/searchbox";
-import Stack from "../componets/stack";
+
 import {useNavigate} from 'react-router-dom'
 import axios from "axios";
 import Element from "../componets/stack_ements"
@@ -62,7 +62,7 @@ function Dashboard(){
 
     let ppl=useMemo(()=>{
        if(srch!=undefined){
-        return   srch.map( x => <li><Element f_name={x.firstname} l_name={x.lastname} u_name={x.username}/></li>)
+        return   srch.map( x => <li><Element f_name={x.firstname} l_name={x.lastname} u_name={x.username} userId={x._id}/></li>)
        }
        else return <li></li>
     },[srch])
